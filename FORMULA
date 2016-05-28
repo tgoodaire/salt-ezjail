@@ -1,0 +1,7 @@
+name: ezjail
+version: 201605
+release: 1
+os: FreeBSD
+minimum_version: 2015.8
+summary: Formula for installing jails via ezjail
+description: Formula for installing jails via ezjail on FreeBSD machines. Also comes with a flavour to specify grains and a salt master.
