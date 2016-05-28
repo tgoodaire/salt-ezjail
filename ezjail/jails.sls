@@ -14,14 +14,14 @@ ezjail.jails.{{ jail }}.configure:
 # jail: {{ jail }}
 # args: {{ args }}
 
-{% if args['grains'] is defined %}
+{% if args['salted']['grains'] is defined %}
 ezjail.jails.{{ jail }}.configure.grains:
   file.managed:
     - name: '{{ lookup.config.path }}'
     - name: '{{ salt['file.join'](options.jaildir, jail, 'usr/local/etc/salt/grains') }}'
     - source: 'salt://ezjail/files/grains'
     - template: 'jinja'
-    - template_grains: {{ args['grains'] }}
+    - template_grains: {{ args['salted']['grains'] }}
     - require_on:
       - cmd: 'ezjail.jails.{{ jail }}.start'
 {% endif %}
