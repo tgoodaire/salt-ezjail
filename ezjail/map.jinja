@@ -1,0 +1,45 @@
+{% set lookup = salt['grains.filter_by'](
+  {
+    'FreeBSD': {
+      'pkgs': [
+        'ezjail',
+      ],
+      'config': {
+        'path': '/usr/local/etc/ezjail.conf',
+      },
+      'service': {
+        'name': 'ezjail',
+      },
+    },
+  },
+  grain='os_family',
+  merge=salt['pillar.get']('ezjail:lookup'),
+  default='unset'
+) %}
+
+{% set defaults = {
+  'jaildir': '/usr/jails',
+  'default_flavour': 'salted',
+  'use_zfs': True,
+  'use_zfs_for_jails': True,
+  'jailzfs': 'zroot/usr/jails',
+  'nameserver': {
+    'servers': [
+      '8.8.8.8',
+      '8.8.4.4',
+    ],
+    'search': 'localdomain.local',
+  },
+  'flavours': {
+    'salted': {
+      'master': '10.0.0.1',
+    },
+  },
+  'service': {
+    'enabled': True,
+  },
+} %}
+
+{% set options = salt['pillar.get']('ezjail',
+                                    default=defaults,
+                                    merge=True) %}

@@ -15,6 +15,7 @@ ezjail:
       flavour: salted
       salted:
         grains:
-          realm: '1.sfo'
           role: 'redis'
-          env: 'prod'
+          stage: 'prod'
+          environments:
+            - '1.sfo'

@@ -1,0 +1,3 @@
+{% from 'ezjail/map.jinja' import options %}
+master: {{ options.flavours.salted.master }}
+state_verbose: False

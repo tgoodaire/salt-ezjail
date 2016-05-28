@@ -1,0 +1,8 @@
+::1             localhost localhost.my.domain
+127.0.0.1               localhost localhost.my.domain
+
+# Flavour salted hosts
+{%- from 'ezjail/map.jinja' import options %}
+{%- for ip, names in options.flavours.salted.hosts.items() %}
+{{ ip }} {{ names | join(' ') }}
+{%- endfor %}
