@@ -1,0 +1,20 @@
+ezjail:
+  # Configuration options for flavours
+  flavours:
+    salted:
+      salt:
+        master: '10.0.0.1'
+      hosts:
+        10.0.0.1:
+          - 'salt'
+          - 'salt.domain.local'
+  jails:
+    redis:
+      networks:
+        lo1: '10.0.0.2'
+      flavour: salted
+      salted:
+        grains:
+          realm: '1.sfo'
+          role: 'redis'
+          env: 'prod'
