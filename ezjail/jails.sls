@@ -3,22 +3,20 @@
 
 {% if options.jails is defined %}
 {% for jail, args in options.jails.items() %}
-{% for interface, ip in args['networks'].items() %}
-
 ezjail.jails.{{ jail }}.configure_ip:
   cmd.run:
-    - name: 'echo ifconfig wlan0 {{ ip }} netmask 255.255.255.0 alias'
+    - name: 'echo ifconfig wlan0 {{ args['networks'][0][0] }} netmask 255.255.255.0 alias'
     - require:
       - service: 'ezjail.service'
 
 ezjail.jails.{{ jail }}.configure:
   cmd.run:
-    - name: 'ezjail-admin create {{ jail }} {{ interface }}|{{ ip }}'
+    - name: 'ezjail-admin create {{ jail }} "{% for interface, ip in
+    args['networks'].items() %}{{ interface }}|{{ ip }}{% if not loop.last %},{% endif %}{% endfor %}"'
     - creates: '{{ salt['file.join'](options.jaildir, jail) }}'
     - require:
       - service: 'ezjail.service'
 
-{% endfor %}
 # jail: {{ jail }}
 # args: {{ args }}
 
