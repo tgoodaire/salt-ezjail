@@ -23,7 +23,7 @@ ezjail.jails.{{ jail }}.configure:
 # args: {{ args }}
 
 {% if args['salted']['grains'] is defined %}
-ezjail.jails.{{ jail }}_{{ ip }}.configure.grains:
+ezjail.jails.{{ jail }}.configure.grains:
   file.managed:
     - name: '{{ lookup.config.path }}'
     - name: '{{ salt['file.join'](options.jaildir, jail, 'usr/local/etc/salt/grains') }}'
