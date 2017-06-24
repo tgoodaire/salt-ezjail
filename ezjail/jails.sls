@@ -11,6 +11,10 @@ ezjail.jails.{{ jail }}_{{ interface }}.configure_ip:
       - service: 'ezjail.service'
 {% endfor %}
 
+ezjail.jails.reclone:
+  cmd.run:
+    - name: service netif cloneup
+
 ezjail.jails.{{ jail }}.configure:
   cmd.run:
     - name: 'ezjail-admin create {{ jail }} "{% for interface, ip in
