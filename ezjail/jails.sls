@@ -5,7 +5,7 @@
 {% for jail, args in options.jails.items() %}
 {% for interface, ip in args['networks'].items() %}
 
-ezjail.jails.{{ jail }}.configure_ip:
+ezjail.jails.{{ jail }}_{{ ip }}.configure_ip:
   cmd.run:
     - name: 'echo ifconfig wlan0 {{ ip }} netmask 255.255.255.0 alias'
     - require:
