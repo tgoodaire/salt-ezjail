@@ -3,10 +3,10 @@
 
 {% if options.jails is defined %}
 {% for jail, args in options.jails.items() %}
-{% for interface in args['networks'].items() %}
+{% for interface, ip in args['networks'].items() %}
 ezjail.jails.{{ jail }}_{{ interface }}.configure_ip:
   cmd.run:
-    - name: 'sysrc cloned_interfaces+=" {{ interface }}"'
+    - name: 'sysrc cloned_interfaces+={{ interface }}'
     - require:
       - service: 'ezjail.service'
 {% endfor %}
