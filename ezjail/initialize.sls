@@ -21,7 +21,7 @@ ezjail.initialize.flavour.{{ flavour }}:
 
 ezjail.initialize.flavour.{{ flavour }}.flavour_rc_script:
   file.managed:
-    - name: '{{ salt['file.join'](options.jaildir, "flavours", flavour, "etc/rc.d", "ezjail.flavour.%s" % flavour) }}'
+    - name: '{{ salt['file.join'](options.jaildir, "flavours", flavour, "etc/rc.d", "ezjail_flavour_%s" % flavour) }}'
     - mode: 0755
     - require:
       - cmd: 'ezjail.initialize'
