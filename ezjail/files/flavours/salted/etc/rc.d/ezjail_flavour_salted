@@ -1,0 +1,41 @@
+#!/bin/sh
+#
+# BEFORE: DAEMON
+# PROVIDE: ezjail_salted_config
+#
+# ezjail flavour salted
+
+. /etc/rc.subr
+
+name=ezjail_flavour_salted
+start_cmd=flavour_setup
+
+flavour_setup() {
+  echo "[$(date)] Starting flavour_setup." > /var/log/flavours_salted.log
+
+# Remove traces of ourself
+# N.B.: Do NOT rm $0, it points to /etc/rc
+##########################
+# TG
+#  rm -f "/etc/rc.d/ezjail.flavour.salted"
+
+
+# Bootstrap pkgng
+##########################
+  echo "[$(date)] Bootstrapping pkgng." >> /var/log/flavours_salted.log
+  env ASSUME_ALWAYS_YES=YES pkg bootstrap >> /var/log/flavours_salted.log 2>&1
+
+# Install salt
+##########################
+  echo "[$(date)] Installing salt." >> /var/log/flavours_salted.log
+  env ASSUME_ALWAYS_YES=YES pkg install py27-salt >> /var/log/flavours_salted.log 2>&1
+
+# Start salt_minion
+##########################
+  echo "[$(date)] Starting salt_minion." >> /var/log/flavours_salted.log
+  service salt_minion start >> /var/log/flavours_salted.log 2>&1
+
+  echo "[$(date)] Finished flavour_setup." >> /var/log/flavours_salted.log
+}
+
+run_rc_command "$1"
